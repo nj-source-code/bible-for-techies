@@ -352,19 +352,14 @@
 
   <div class="terminal-card dashed-border">
     <div class="subhead">PERSONAL STUDY TERMINAL</div>
-    <div class="main-heading">Read. Search. Compare.</div>
+    <div class="main-heading">Read. Compare.</div>
     <div class="description">
-      Explore the Bible by book, chapter, and verse, look up passages, or perform keyword searches across Scripture.
+      Explore the Bible by book, chapter, and verse, or look up passages across Scripture.
     </div>
   </div>
 
   <div class="terminal-card">
-    <div class="input-row">
-      <input type="text" class="input-field" id="search-input" placeholder="Search words or reference (e.g. John 3:16)...">
-      <button class="btn-action" id="search-submit-btn" style="width: auto; padding: 0 20px;">SEARCH SCRIPTURE</button>
-    </div>
-
-    <div class="input-row" style="margin-top: 14px;">
+    <div class="input-row" style="margin-top: 4px;">
       <select id="book-dropdown"></select>
       <select id="chapter-dropdown" style="max-width: 120px;"></select>
       <select id="verse-dropdown" style="max-width: 120px;">
@@ -375,9 +370,9 @@
     <button class="btn-action" id="read-chapter-btn" style="margin-top: 6px;">READ PASSAGE →</button>
 
     <div class="quick-chips">
-      <button class="chip-btn" data-query="John 3:16">JOHN 3:16</button>
-      <button class="chip-btn" data-query="Psalm 23">PSALM 23</button>
-      <button class="chip-btn" data-query="Genesis 1">GENESIS 1</button>
+      <button class="chip-btn" data-book="John" data-chapter="3" data-verse="16">JOHN 3:16</button>
+      <button class="chip-btn" data-book="Psalms" data-chapter="23" data-verse="all">PSALM 23</button>
+      <button class="chip-btn" data-book="Genesis" data-chapter="1" data-verse="all">GENESIS 1</button>
       <button class="chip-btn" id="random-verse-btn">🎲 RANDOM</button>
     </div>
   </div>
@@ -563,32 +558,6 @@
       }
     }
 
-    async function executeSearch(query) {
-      passageDisplayArea.innerHTML = `Executing search for "${query}"...`;
-      passageHeading.textContent = `SEARCH RESULTS`;
-
-      try {
-        const res = await fetch(`https://api.getbible.net/v2/kjv/search/${encodeURIComponent(query)}.json`);
-        if (!res.ok) throw new Error('Search failed');
-        const data = await res.json();
-
-        if (!data.results || data.results.length === 0) {
-          passageDisplayArea.innerHTML = 'No matches found in King James Version.';
-          return;
-        }
-
-        let resultsHtml = `<div style="margin-bottom:12px; color:var(--text-dim);">[FOUND ${data.results.length} MATCHES]</div>`;
-        data.results.slice(0, 40).forEach(item => {
-          resultsHtml += `<div style="margin-bottom:14px;">` +
-                         `<strong style="color:var(--text-main);">${item.book_name} ${item.chapter}:${item.verse}</strong> — ` +
-                         `<span>${item.text}</span></div>`;
-        });
-        passageDisplayArea.innerHTML = resultsHtml;
-      } catch (e) {
-        passageDisplayArea.innerHTML = 'Search request failed. Please check query syntax.';
-      }
-    }
-
     /* Event Listeners */
     bookDropdown.addEventListener('change', (e) => {
       currentBookIdx = parseInt(e.target.value);
@@ -607,16 +576,23 @@
       fetchPassage(BIBLE_BOOKS[currentBookIdx].nr, currentChapter, vVal);
     });
 
-    document.getElementById('search-submit-btn').addEventListener('click', () => {
-      const q = document.getElementById('search-input').value.trim();
-      if (q) executeSearch(q);
-    });
+    document.querySelectorAll('.chip-btn[data-book]').forEach(chip => {
+      chip.addEventListener('click', async () => {
+        const bookName = chip.getAttribute('data-book');
+        const targetCh = parseInt(chip.getAttribute('data-chapter'));
+        const targetV = chip.getAttribute('data-verse');
 
-    document.querySelectorAll('.chip-btn[data-query]').forEach(chip => {
-      chip.addEventListener('click', () => {
-        const query = chip.getAttribute('data-query');
-        document.getElementById('search-input').value = query;
-        executeSearch(query);
+        const bookIdx = BIBLE_BOOKS.findIndex(b => b.name.toLowerCase() === bookName.toLowerCase());
+        if (bookIdx !== -1) {
+          currentBookIdx = bookIdx;
+          bookDropdown.value = currentBookIdx;
+          updateChapterSelector();
+          currentChapter = targetCh;
+          chapterDropdown.value = currentChapter;
+          await updateVerseSelector();
+          verseDropdown.value = targetV;
+          fetchPassage(BIBLE_BOOKS[currentBookIdx].nr, currentChapter, targetV);
+        }
       });
     });
 
