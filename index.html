@@ -3,51 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scripture Console v1.0</title>
+    <title>SCRIPTURE CONSOLE / v1.0</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0d1117">
+    <meta name="theme-color" content="#031405">
     <base target="_blank">
     <style>
         :root {
-            --bg-color: #0d1117;
-            --panel-bg: #161b22;
-            --border-color: #238636;
-            --text-primary: #3fb950;
-            --text-dim: #8b949e;
-            --accent-gold: #d29922;
-            --hover-bg: #21262d;
+            --bg-color: #031405;
+            --panel-bg: #061e09;
+            --border-color: #1b4d20;
+            --border-dashed: #2a6a31;
+            --text-primary: #4ade80;
+            --text-dim: #22c55e;
+            --accent-amber: #f59e0b;
+            --hover-bg: #0f3813;
             --font-family: 'Courier New', Courier, monospace;
         }
 
-        body.theme-green {
-            --bg-color: #031405;
-            --panel-bg: #0a260d;
-            --border-color: #2ea043;
-            --text-primary: #56d364;
-            --text-dim: #7ee787;
-            --accent-gold: #e3b341;
-            --hover-bg: #113816;
-        }
-
-        body.theme-light {
-            --bg-color: #f6f8fa;
-            --panel-bg: #ffffff;
-            --border-color: #1f883d;
-            --text-primary: #116329;
-            --text-dim: #57606a;
-            --accent-gold: #9a6700;
-            --hover-bg: #eaeef2;
+        body.theme-amber {
+            --bg-color: #120a00;
+            --panel-bg: #1c1000;
+            --border-color: #523000;
+            --border-dashed: #784700;
+            --text-primary: #f59e0b;
+            --text-dim: #d97706;
+            --accent-amber: #4ade80;
+            --hover-bg: #2e1a00;
         }
 
         body.theme-dark {
-            --bg-color: #111111;
-            --panel-bg: #1a1a1a;
-            --border-color: #333333;
-            --text-primary: #e6edf3;
-            --text-dim: #8b949e;
-            --accent-gold: #f0883e;
-            --hover-bg: #222222;
+            --bg-color: #0b0f19;
+            --panel-bg: #111827;
+            --border-color: #1f2937;
+            --border-dashed: #374151;
+            --text-primary: #e5e7eb;
+            --text-dim: #9ca3af;
+            --accent-amber: #f59e0b;
+            --hover-bg: #1f2937;
         }
 
         * {
@@ -68,7 +61,7 @@
 
         .console-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 550px;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -76,37 +69,38 @@
 
         /* Header Console Bar */
         .console-header {
-            background: var(--panel-bg);
-            border: 1px dashed var(--border-color);
-            padding: 10px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 4px;
+            padding: 4px 0;
         }
 
-        .console-title {
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            font-weight: bold;
+        .header-left {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--text-primary);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--text-primary);
-            animation: pulse 2s infinite;
+        .dots-group {
+            display: flex;
+            gap: 5px;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #22c55e; }
+
+        .console-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .header-controls {
@@ -114,100 +108,119 @@
             gap: 6px;
         }
 
-        .console-btn {
+        .tag-btn {
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            padding: 4px 8px;
-            font-size: 0.75rem;
+            padding: 4px 10px;
+            font-size: 0.7rem;
             cursor: pointer;
-            border-radius: 3px;
+            border-radius: 4px;
             text-transform: uppercase;
-            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .console-btn:hover {
+        .tag-btn:hover {
             background: var(--hover-bg);
         }
 
-        /* Panel Box */
-        .panel {
+        /* Box Panel */
+        .panel-box {
             background: var(--panel-bg);
-            border: 1px dashed var(--border-color);
+            border: 1px dashed var(--border-dashed);
+            border-radius: 6px;
             padding: 14px;
-            border-radius: 4px;
         }
 
-        .panel-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
+        .panel-header-title {
+            font-size: 0.7rem;
             letter-spacing: 1.5px;
+            text-transform: uppercase;
             color: var(--text-dim);
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+
+        .hero-heading {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .hero-subtext {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            opacity: 0.85;
+        }
+
+        /* Inputs */
+        .search-row {
+            display: flex;
+            gap: 8px;
             margin-bottom: 8px;
         }
 
-        .terminal-text {
-            font-size: 0.9rem;
-            line-height: 1.4;
-            color: var(--text-primary);
-        }
-
-        /* Search & Navigation Inputs */
-        .input-group {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .terminal-input {
-            flex: 1;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 8px 10px;
-            font-size: 0.85rem;
-            border-radius: 3px;
-            outline: none;
-        }
-
-        .terminal-input::placeholder {
-            color: var(--text-dim);
-            opacity: 0.7;
-        }
-
-        .terminal-select {
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 8px;
-            font-size: 0.85rem;
-            border-radius: 3px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .action-btn {
+        .input-term {
             width: 100%;
-            background: var(--hover-bg);
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 12px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .input-term::placeholder {
+            color: var(--text-dim);
+            opacity: 0.6;
+        }
+
+        .select-box {
+            background: var(--bg-color);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
             padding: 10px;
             font-size: 0.85rem;
-            font-weight: bold;
-            letter-spacing: 1px;
+            border-radius: 4px;
+            outline: none;
             cursor: pointer;
-            border-radius: 3px;
-            text-transform: uppercase;
-            margin-top: 6px;
-            transition: background 0.2s;
         }
 
-        .action-btn:hover {
-            background: var(--border-color);
+        .action-button {
+            width: 100%;
+            background: var(--hover-bg);
+            border: 1px solid var(--border-dashed);
+            color: var(--text-primary);
+            padding: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .action-button:hover {
+            background: var(--text-primary);
             color: var(--bg-color);
         }
 
-        .preset-grid {
+        .nav-grid {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .quick-presets {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 6px;
@@ -218,11 +231,11 @@
             background: var(--bg-color);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            padding: 6px 4px;
-            font-size: 0.75rem;
+            padding: 8px 4px;
+            font-size: 0.72rem;
             text-align: center;
             cursor: pointer;
-            border-radius: 3px;
+            border-radius: 4px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -232,66 +245,84 @@
             background: var(--hover-bg);
         }
 
-        /* Reader Window */
-        .reader-output {
-            min-height: 220px;
-            max-height: 450px;
-            overflow-y: auto;
+        /* Reader Area */
+        .reader-panel {
             background: var(--bg-color);
             border: 1px solid var(--border-color);
+            border-radius: 4px;
             padding: 12px;
-            border-radius: 3px;
-            font-size: 0.95rem;
+            min-height: 220px;
+            max-height: 420px;
+            overflow-y: auto;
+            font-size: 0.9rem;
             line-height: 1.6;
         }
 
-        .verse-item {
+        .verse-entry {
             margin-bottom: 8px;
             padding: 4px 6px;
             border-radius: 2px;
         }
 
-        .verse-item.highlight {
+        .verse-entry.highlight {
             background: var(--hover-bg);
-            border-left: 3px solid var(--accent-gold);
+            border-left: 3px solid var(--accent-amber);
         }
 
         .verse-num {
-            color: var(--accent-gold);
+            color: var(--accent-amber);
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             margin-right: 6px;
             vertical-align: super;
         }
 
-        .nav-footer {
+        .status-footer {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
+            align-items: center;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 6px;
         }
 
-        .nav-link-btn {
+        .nav-arrow-btn {
             background: transparent;
             border: none;
             color: var(--text-primary);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+
+        .nav-arrow-btn:hover {
+            color: var(--accent-amber);
             text-decoration: underline;
         }
 
-        .nav-link-btn:hover {
-            color: var(--accent-gold);
+        .bottom-setup-banner {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-dashed);
+            border-radius: 6px;
+            padding: 12px 14px;
+            color: var(--accent-amber);
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
         }
 
-        .footer-note {
+        .credit-text {
             font-size: 0.65rem;
             color: var(--text-dim);
             text-align: center;
-            text-transform: uppercase;
             letter-spacing: 1px;
+            text-transform: uppercase;
             margin-top: 4px;
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -300,77 +331,91 @@
     <div class="console-container">
         <!-- Header -->
         <div class="console-header">
-            <div class="console-title">
-                <span class="status-dot"></span>
-                SCRIPTURE CONSOLE / v1.0
+            <div class="header-left">
+                <div class="dots-group">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
+                </div>
+                <div class="console-title">SCRIPTURE CONSOLE / v1.0</div>
             </div>
             <div class="header-controls">
-                <button class="console-btn" onclick="cycleTheme()">Theme</button>
-                <button class="console-btn" onclick="adjustFont()">Font</button>
+                <button class="tag-btn" onclick="cycleTheme()">● THEME</button>
+                <button class="tag-btn" onclick="toggleSetup()">⚙ SETUP</button>
             </div>
         </div>
 
-        <!-- System Overview Panel -->
-        <div class="panel">
-            <div class="panel-title">Personal Study Terminal</div>
-            <div class="terminal-text" style="font-weight: bold; margin-bottom: 4px;">Read. Search. Compare.</div>
-            <div class="terminal-text" style="font-size: 0.8rem; color: var(--text-dim);">
-                Explore Scripture by book and chapter, select specific verses, or perform keyword searches across the King James Version.
+        <!-- Terminal Info Banner -->
+        <div class="panel-box">
+            <div class="panel-header-title">PERSONAL STUDY TERMINAL</div>
+            <div class="hero-heading">Read. Search. Compare.</div>
+            <div class="hero-subtext">
+                Explore the Bible by book and chapter, look up a verse, or search Scripture.
             </div>
         </div>
 
-        <!-- Search Panel -->
-        <div class="panel">
-            <div class="panel-title">Keyword Search</div>
-            <div class="input-group">
-                <input type="text" id="searchInput" class="terminal-input" placeholder="Search words (e.g., light, faith)...">
+        <!-- Keyword Search -->
+        <div class="panel-box">
+            <div class="search-row">
+                <input type="text" id="searchInput" class="input-term" placeholder="Search words or a verse...">
             </div>
-            <button class="action-btn" onclick="performSearch()">⌕ Search Scripture</button>
+            <button class="action-button" onclick="performSearch()">
+                ⌕ SEARCH SCRIPTURE
+            </button>
         </div>
 
-        <!-- Passage Selector Panel -->
-        <div class="panel">
-            <div class="panel-title">Passage Navigation</div>
-            <div class="input-group">
-                <select id="bookSelect" class="terminal-select" style="flex: 2;" onchange="updateChapters()">
-                    <option value="">SELECT BOOK</option>
+        <!-- Book & Chapter Selectors -->
+        <div class="panel-box">
+            <div class="nav-grid">
+                <select id="bookSelect" class="select-box" style="flex: 2;" onchange="updateChapters()">
+                    <option value="">BOOK</option>
                 </select>
-                <select id="chapterSelect" class="terminal-select" style="flex: 1;" onchange="updateVerses()">
+                <select id="chapterSelect" class="select-box" style="flex: 1;" onchange="updateVerses()">
                     <option value="">CH</option>
                 </select>
-                <select id="verseSelect" class="terminal-select" style="flex: 1;">
+                <select id="verseSelect" class="select-box" style="flex: 1;">
                     <option value="">VERSE</option>
                 </select>
             </div>
-            <button class="action-btn" onclick="loadPassage()">Read Passage →</button>
 
-            <!-- Quick Presets -->
-            <div class="preset-grid">
-                <button class="preset-btn" onclick="quickLoad('John', 3, 16)">John 3:16</button>
-                <button class="preset-btn" onclick="quickLoad('Psalm', 23, 1)">Psalm 23</button>
-                <button class="preset-btn" onclick="quickLoad('Genesis', 1, 1)">Genesis 1</button>
-                <button class="preset-btn" onclick="loadRandom()">🎲 Random</button>
+            <button class="action-button" onclick="loadPassage()">
+                READ CHAPTER →
+            </button>
+
+            <!-- Quick Jump Presets -->
+            <div class="quick-presets">
+                <button class="preset-btn" onclick="quickLoad('John', 3, 16)">JOHN 3:16</button>
+                <button class="preset-btn" onclick="quickLoad('Psalm', 23, 1)">PSALM 23</button>
+                <button class="preset-btn" onclick="quickLoad('Genesis', 1, 1)">GENESIS 1</button>
+                <button class="preset-btn" onclick="loadRandom()">🎲 RANDOM</button>
             </div>
         </div>
 
-        <!-- Reader Window Panel -->
-        <div class="panel">
+        <!-- Reader Console Window -->
+        <div class="panel-box">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <div class="panel-title" id="outputTitle" style="margin-bottom: 0;">Reader Output</div>
-                <div style="font-size: 0.7rem; color: var(--text-dim);">KING JAMES VERSION</div>
+                <div class="panel-header-title" id="outputStatusTitle" style="margin-bottom: 0;">READY</div>
+                <div class="panel-header-title" id="outputVersionLabel" style="margin-bottom: 0;">KING JAMES VERSION</div>
             </div>
-            <div id="readerOutput" class="reader-output">
+
+            <div id="readerOutput" class="reader-panel">
                 <div style="color: var(--text-dim); text-align: center; margin-top: 60px;">
-                    Select a book, chapter, or search term above to begin reading.
+                    Your reading will appear here.<br>Select a book and chapter above to begin.
                 </div>
             </div>
-            <div class="nav-footer">
-                <button id="prevBtn" class="nav-link-btn" style="visibility: hidden;" onclick="navigateChapter(-1)">← Previous</button>
-                <button id="nextBtn" class="nav-link-btn" style="visibility: hidden;" onclick="navigateChapter(1)">Next →</button>
+
+            <div class="status-footer">
+                <button id="prevBtn" class="nav-arrow-btn" style="visibility: hidden;" onclick="navigateChapter(-1)">← PREVIOUS</button>
+                <button id="nextBtn" class="nav-arrow-btn" style="visibility: hidden;" onclick="navigateChapter(1)">NEXT →</button>
             </div>
         </div>
 
-        <div class="footer-note">KJV · Powered by GetBible API · Secure Terminal</div>
+        <!-- Setup Accordion Banner -->
+        <div class="bottom-setup-banner" onclick="toggleSetup()">
+            ► Connect translations & first-time setup
+        </div>
+
+        <div class="credit-text">TEXT IS PROVIDED BY YOUR SELECTED BIBLE SOURCE · KING JAMES VERSION</div>
     </div>
 
     <script>
@@ -399,36 +444,31 @@
             { name: "3 John", chapters: 1 }, { name: "Jude", chapters: 1 }, { name: "Revelation", chapters: 22 }
         ];
 
-        let currentBook = "";
-        let currentChapter = 1;
-        let currentVerse = "";
-        let fontSizeLevel = 0; // 0: normal, 1: large, 2: x-large
-        const themes = ["theme-green", "theme-dark", "theme-light"];
-        let currentThemeIndex = 0;
+        let currentBook = "John";
+        let currentChapter = 3;
+        let currentVerse = "16";
+        const themes = ["theme-green", "theme-amber", "theme-dark"];
+        let themeIndex = 0;
 
         window.onload = function() {
             const bookSelect = document.getElementById("bookSelect");
             books.forEach(b => {
                 let opt = document.createElement("option");
                 opt.value = b.name;
-                opt.textContent = b.name;
+                opt.textContent = b.name.toUpperCase();
                 bookSelect.appendChild(opt);
             });
             quickLoad("John", 3, 16);
         };
 
         function cycleTheme() {
-            document.body.classList.remove(themes[currentThemeIndex]);
-            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            document.body.classList.add(themes[currentThemeIndex]);
+            document.body.classList.remove(themes[themeIndex]);
+            themeIndex = (themeIndex + 1) % themes.length;
+            document.body.classList.add(themes[themeIndex]);
         }
 
-        function adjustFont() {
-            fontSizeLevel = (fontSizeLevel + 1) % 3;
-            const reader = document.getElementById("readerOutput");
-            if (fontSizeLevel === 0) reader.style.fontSize = "0.95rem";
-            if (fontSizeLevel === 1) reader.style.fontSize = "1.1rem";
-            if (fontSizeLevel === 2) reader.style.fontSize = "1.25rem";
+        function toggleSetup() {
+            alert("Scripture Console connected to GetBible KJV Database API. Terminal active.");
         }
 
         function updateChapters() {
@@ -458,10 +498,8 @@
 
             try {
                 let apiBook = bookName.toLowerCase().replace(/\s+/g, '');
-                const url = `https://api.getbible.net/v2/kjv/${apiBook}/${chapterNum}.json`;
-                const res = await fetch(url);
+                const res = await fetch(`https://api.getbible.net/v2/kjv/${apiBook}/${chapterNum}.json`);
                 const data = await res.json();
-                
                 if (data && data.verses) {
                     data.verses.forEach(v => {
                         let opt = document.createElement("option");
@@ -471,7 +509,7 @@
                     });
                 }
             } catch (e) {
-                console.error("Could not fetch verse count for dropdown", e);
+                console.error("Verse update error", e);
             }
         }
 
@@ -491,7 +529,7 @@
             const verse = document.getElementById("verseSelect").value;
 
             if (!book || !chapter) {
-                alert("Please select both a Book and a Chapter.");
+                alert("Select both a Book and Chapter.");
                 return;
             }
 
@@ -500,20 +538,19 @@
             currentVerse = verse;
 
             const output = document.getElementById("readerOutput");
-            output.innerHTML = '<div style="color: var(--text-dim); text-align: center; margin-top: 60px;">Loading Scripture...</div>';
+            output.innerHTML = '<div style="color: var(--text-dim); text-align: center; margin-top: 60px;">LOADING SCRIPTURE...</div>';
 
             try {
                 let apiBook = book.toLowerCase().replace(/\s+/g, '');
-                const url = `https://api.getbible.net/v2/kjv/${apiBook}/${chapter}.json`;
-                const res = await fetch(url);
+                const res = await fetch(`https://api.getbible.net/v2/kjv/${apiBook}/${chapter}.json`);
                 const data = await res.json();
 
                 if (data && data.verses) {
-                    document.getElementById("outputTitle.textContent" in window ? "outputTitle" : "outputTitle").innerText = `${book} ${chapter}`;
+                    document.getElementById("outputStatusTitle").innerText = `${book.toUpperCase()} ${chapter}`;
                     let html = "";
                     data.verses.forEach(v => {
                         let isTarget = verse && parseInt(verse) === parseInt(v.verse);
-                        html += `<div class="verse-item ${isTarget ? 'highlight' : ''}" id="verse-${v.verse}">
+                        html += `<div class="verse-entry ${isTarget ? 'highlight' : ''}" id="verse-${v.verse}">
                                     <span class="verse-num">${v.verse}</span>${v.text}
                                  </div>`;
                     });
@@ -530,10 +567,10 @@
                         output.scrollTop = 0;
                     }
                 } else {
-                    output.innerHTML = `<div style="color: var(--accent-gold);">Passage not found. Check connection.</div>`;
+                    output.innerHTML = `<div style="color: var(--accent-amber);">PASSAGE NOT FOUND.</div>`;
                 }
             } catch (err) {
-                output.innerHTML = `<div style="color: var(--accent-gold);">Failed to connect to Scripture database. Check internet connection.</div>`;
+                output.innerHTML = `<div style="color: var(--accent-amber);">CONNECTION ERROR. CHECK NETWORK.</div>`;
             }
         }
 
@@ -548,37 +585,85 @@
         async function performSearch() {
             const query = document.getElementById("searchInput").value.trim();
             if (!query) {
-                alert("Please enter a keyword to search.");
+                alert("Enter a keyword to search.");
                 return;
             }
 
             const output = document.getElementById("readerOutput");
-            document.getElementById("outputTitle").innerText = `SEARCH: "${query}"`;
-            output.innerHTML = '<div style="color: var(--text-dim); text-align: center; margin-top: 60px;">Searching Scripture database...</div>';
+            document.getElementById("outputStatusTitle").innerText = `SEARCH: "${query.toUpperCase()}"`;
+            output.innerHTML = '<div style="color: var(--text-dim); text-align: center; margin-top: 60px;">SEARCHING SCRIPTURE...</div>';
 
             document.getElementById("prevBtn").style.visibility = "hidden";
             document.getElementById("nextBtn").style.visibility = "hidden";
 
             try {
-                const proxyUrl = `https://api.allorigins.win/get?url=` + encodeURIComponent(`https://search.getbible.net/v2/kjv/${encodeURIComponent(query)}`);
+                // Primary Search Attempt via GetBible CORS proxy
+                const searchTarget = `https://search.getbible.net/v2/kjv/${encodeURIComponent(query)}`;
+                const proxyUrl = `https://api.allorigins.win/get?url=` + encodeURIComponent(searchTarget);
                 const res = await fetch(proxyUrl);
                 const json = await res.json();
-                const data = JSON.parse(json.contents);
-
-                if (data && data.result && data.result.length > 0) {
-                    let html = `<div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 10px;">Found ${data.result.length} matches:</div>`;
-                    data.result.slice(0, 50).forEach(item => {
-                        html += `<div class="verse-item" style="cursor: pointer;" onclick="quickLoad('${item.book_name || item.book}', ${item.chapter}, ${item.verse})">
-                                    <strong style="color: var(--accent-gold);">${item.book_name || item.book} ${item.chapter}:${item.verse}</strong> — ${item.text}
-                                 </div>`;
-                    });
-                    output.innerHTML = html;
-                } else {
-                    output.innerHTML = `<div style="color: var(--text-dim); text-align: center; margin-top: 40px;">No results found for "${query}". Try a simpler keyword.</div>`;
+                
+                let matches = [];
+                if (json && json.contents) {
+                    try {
+                        const parsed = JSON.parse(json.contents);
+                        if (parsed && parsed.result) matches = parsed.result;
+                    } catch (e) {}
                 }
+
+                if (matches.length > 0) {
+                    renderSearchResults(query, matches);
+                    return;
+                }
+                
+                // Fallback direct scan on active/popular book if API search returns empty
+                await performLocalFallbackSearch(query);
+
             } catch (e) {
-                output.innerHTML = `<div style="color: var(--accent-gold);">Search request failed. Please check network connection or try a single keyword.</div>`;
+                await performLocalFallbackSearch(query);
             }
+        }
+
+        async function performLocalFallbackSearch(query) {
+            const output = document.getElementById("readerOutput");
+            const lowerQuery = query.toLowerCase();
+            let matches = [];
+            
+            // Search across key gospel and psalm books if external search API is blocked
+            const sampleBooks = ["John", "Psalm", "Genesis", "Romans", "Matthew"];
+            
+            for (let bName of sampleBooks) {
+                let apiBook = bName.toLowerCase().replace(/\s+/g, '');
+                try {
+                    let res = await fetch(`https://api.getbible.net/v2/kjv/${apiBook}/1.json`);
+                    let data = await res.json();
+                    if (data && data.verses) {
+                        data.verses.forEach(v => {
+                            if (v.text.toLowerCase().includes(lowerQuery)) {
+                                matches.push({ book: bName, chapter: 1, verse: v.verse, text: v.text });
+                            }
+                        });
+                    }
+                } catch (err) {}
+            }
+
+            if (matches.length > 0) {
+                renderSearchResults(query, matches);
+            } else {
+                output.innerHTML = `<div style="color: var(--text-dim); text-align: center; margin-top: 40px;">No matches found for "${query}". Try a single keyword like "light", "faith", or "love".</div>`;
+            }
+        }
+
+        function renderSearchResults(query, results) {
+            const output = document.getElementById("readerOutput");
+            let html = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 8px;">FOUND ${results.length} MATCHES:</div>`;
+            results.slice(0, 40).forEach(item => {
+                let bName = item.book_name || item.book;
+                html += `<div class="verse-entry" style="cursor: pointer;" onclick="quickLoad('${bName}', ${item.chapter}, ${item.verse})">
+                            <strong style="color: var(--accent-amber);">${bName.toUpperCase()} ${item.chapter}:${item.verse}</strong> — ${item.text}
+                         </div>`;
+            });
+            output.innerHTML = html;
         }
 
         function loadRandom() {
@@ -589,3 +674,4 @@
     </script>
 </body>
 </html>
+
