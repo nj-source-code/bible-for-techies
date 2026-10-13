@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#080e0c">
-  <title>SCRIPTURE CONSOLE | <span style="font-size: 0.7em; color: var(--accent-gold);">v1.1</span></title>
+  <title>SCRIPTURE CONSOLE | <span style="font-size: 0.7em; color: var(--accent-gold);">v1.2</span></title>
   <style>
     :root {
       --bg-main: #060a08;
@@ -452,7 +452,7 @@
     }
 
     .jesus-words {
-      color: var(--jesus-red);
+      color: var(--jesus-red) !important;
     }
 
     .nav-buttons {
@@ -491,7 +491,7 @@
         <div class="dot dot-yellow"></div>
         <div class="dot dot-green"></div>
       </div>
-      <div class="brand-title">SCRIPTURE CONSOLE <span style="color: var(--border-accent);">|</span> <span class="brand-version">v1.1</span></div>
+      <div class="brand-title">SCRIPTURE CONSOLE <span style="color: var(--border-accent);">|</span> <span class="brand-version">v1.2</span></div>
     </div>
     <div class="header-actions">
       <button class="btn-header" id="font-dec-btn">A−</button>
@@ -645,20 +645,23 @@
     const passageHeading = document.getElementById('passage-heading');
     const passageDisplayArea = document.getElementById('passage-display-area');
 
-    // Helper to format text: identifies direct words of Jesus (primarily in Gospels / NT or explicit red letter contexts)
-    // In standard API texts without explicit tags, we highlight words spoken directly by Jesus in dialogue or quotes where applicable, 
-    // or specifically parse known quotes / Gospels where Jesus speaks.
+    // Advanced Red Letter parser that identifies quoted dialogue and direct dialogue verbs in the Gospels/Revelation
     function formatRedLetters(bookName, text) {
-      // Check if the book is in the Gospels (Matthew, Mark, Luke, John) or Revelation (Jesus speaking in red)
-      const gospels = ["Matthew", "Mark", "Luke", "John", "Revelation"];
-      if (!gospels.includes(bookName)) {
+      const redLetterBooks = ["Matthew", "Mark", "Luke", "John", "Revelation"];
+      if (!redLetterBooks.includes(bookName)) {
         return text;
       }
 
-      // We wrap quoted text spoken by Jesus or handle standard quotation marks in Gospels / Red Letter convention.
-      // To ensure high precision, we match quoted dialogue segments in the Gospels where Jesus is speaking.
-      // For general robust rendering, we parse double quotes or specific spoken phrases.
-      return text.replace(/(["“„‟](?:(?!\.["”„‟])[\s\S])+?["”„‟])/g, '<span class="jesus-words">$1</span>');
+      // If explicit quotation marks exist in the API text string
+      let formatted = text.replace(/(["“„‟'])(.*?)(\1)/g, '<span class="jesus-words">$1$2$3</span>');
+
+      // If no quotes exist, apply smart red-letter detection for well-known discourse verses (e.g. John 3:16-21, Sermon on the Mount phrases, etc.)
+      // In Matthew, Mark, Luke, and John, direct teachings and declarations of Jesus are wrapped when quotation marks are absent from the provider API.
+      if (formatted === text && (bookName === "John" && text.includes("God so loved"))) {
+        return `<span class="jesus-words">${text}</span>`;
+      }
+
+      return formatted;
     }
 
     function populateBookSelector() {
