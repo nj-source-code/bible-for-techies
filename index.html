@@ -43,6 +43,20 @@
       --highlight-bg: #38200b;
     }
 
+    [data-theme="mauve"] {
+      --bg-main: #0b060a;
+      --bg-card: #120b10;
+      --bg-card-hover: #1a1017;
+      --border-color: #331a2c;
+      --border-accent: #4a253e;
+      --text-main: #e879f9;
+      --text-dim: #a228b5;
+      --text-muted: #6b1557;
+      --text-bright: #f5d0fe;
+      --accent-gold: #f6d860;
+      --highlight-bg: #35142e;
+    }
+
     [data-theme="dark"] {
       --bg-main: #0d1117;
       --bg-card: #161b22;
@@ -352,7 +366,7 @@
 
   <div class="terminal-card dashed-border">
     <div class="subhead">PERSONAL STUDY TERMINAL</div>
-    <div class="main-heading">Read. Compare.</div>
+    <div class="main-heading">Read. Study. Grow.</div>
     <div class="description">
       Explore the Bible by book, chapter, and verse, or look up passages across Scripture.
     </div>
@@ -471,8 +485,8 @@
     let currentChapter = 1;
     let currentFontSize = 16;
 
-    const themes = ['', 'amber', 'dark', 'light'];
-    const themeLabels = ['◉ GREEN PHOSPHOR', '◉ AMBER PHOSPHOR', '◉ DARK CODER', '◉ LIGHT TERMINAL'];
+    const themes = ['', 'amber', 'mauve', 'dark', 'light'];
+    const themeLabels = ['◉ GREEN PHOSPHOR', '◉ AMBER PHOSPHOR', '◉ MAUVE PHOSPHOR', '◉ DARK CODER', '◉ LIGHT TERMINAL'];
     let themeIdx = 0;
 
     const bookDropdown = document.getElementById('book-dropdown');
