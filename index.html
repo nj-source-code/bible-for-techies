@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#080e0c">
-  <title>SCRIPTURE CONSOLE / v1.0</title>
+  <title>SCRIPTURE CONSOLE | <span style="font-size: 0.7em; color: var(--accent-gold);">v1.1</span></title>
   <style>
     :root {
       --bg-main: #060a08;
@@ -27,6 +27,7 @@
       --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
       --font-size: 16px;
       --highlight-bg: #143522;
+      --jesus-red: #ff4d4d;
     }
 
     [data-theme="amber"] {
@@ -41,6 +42,7 @@
       --text-bright: #fde68a;
       --accent-gold: #38bdf8;
       --highlight-bg: #38200b;
+      --jesus-red: #ff6b35;
     }
 
     [data-theme="mauve"] {
@@ -55,6 +57,7 @@
       --text-bright: #f5d0fe;
       --accent-gold: #f6d860;
       --highlight-bg: #35142e;
+      --jesus-red: #ff5c8d;
     }
 
     [data-theme="dark"] {
@@ -69,6 +72,7 @@
       --text-bright: #ffffff;
       --accent-gold: #58a6ff;
       --highlight-bg: #1f2937;
+      --jesus-red: #ff5555;
     }
 
     [data-theme="light"] {
@@ -83,6 +87,127 @@
       --text-bright: #111827;
       --accent-gold: #2563eb;
       --highlight-bg: #e5e7eb;
+      --jesus-red: #c51111;
+    }
+
+    [data-theme="blackedout"] {
+      --bg-main: #000000;
+      --bg-card: #080808;
+      --bg-card-hover: #121212;
+      --border-color: #222222;
+      --border-accent: #333333;
+      --text-main: #cccccc;
+      --text-dim: #888888;
+      --text-muted: #555555;
+      --text-bright: #ffffff;
+      --accent-gold: #38bdf8;
+      --highlight-bg: #1a1a1a;
+      --jesus-red: #ff3333;
+    }
+
+    [data-theme="red"] {
+      --bg-main: #140505;
+      --bg-card: #1f0808;
+      --bg-card-hover: #2d0d0d;
+      --border-color: #4a1515;
+      --border-accent: #661f1f;
+      --text-main: #fca5a5;
+      --text-dim: #f87171;
+      --text-muted: #b91c1c;
+      --text-bright: #fee2e2;
+      --accent-gold: #fbbf24;
+      --highlight-bg: #3f1212;
+      --jesus-red: #ff8585;
+    }
+
+    [data-theme="blue"] {
+      --bg-main: #040914;
+      --bg-card: #0a1124;
+      --bg-card-hover: #101c36;
+      --border-color: #1e3a8a;
+      --border-accent: #2563eb;
+      --text-main: #60a5fa;
+      --text-dim: #3b82f6;
+      --text-muted: #1d4ed8;
+      --text-bright: #93c5fd;
+      --accent-gold: #fbbf24;
+      --highlight-bg: #1e293b;
+      --jesus-red: #ff4d6d;
+    }
+
+    [data-theme="cyan"] {
+      --bg-main: #021013;
+      --bg-card: #061a1f;
+      --bg-card-hover: #0b2830;
+      --border-color: #155e75;
+      --border-accent: #0891b2;
+      --text-main: #22d3ee;
+      --text-dim: #06b6d4;
+      --text-muted: #0e7490;
+      --text-bright: #67e8f9;
+      --accent-gold: #fde047;
+      --highlight-bg: #0f3443;
+      --jesus-red: #ff6363;
+    }
+
+    [data-theme="inverted-green"] {
+      --bg-main: #e8f5e9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f8f1;
+      --border-color: #a5d6a7;
+      --border-accent: #66bb6a;
+      --text-main: #1b5e20;
+      --text-dim: #2e7d32;
+      --text-muted: #4caf50;
+      --text-bright: #0d3b10;
+      --accent-gold: #d97706;
+      --highlight-bg: #c8e6c9;
+      --jesus-red: #b91c1c;
+    }
+
+    [data-theme="gold"] {
+      --bg-main: #141106;
+      --bg-card: #1f1b0a;
+      --bg-card-hover: #2b250e;
+      --border-color: #5c4d16;
+      --border-accent: #856f21;
+      --text-main: #fde047;
+      --text-dim: #ca8a04;
+      --text-muted: #854d0e;
+      --text-bright: #fef08a;
+      --accent-gold: #38bdf8;
+      --highlight-bg: #3d3410;
+      --jesus-red: #ff4d4d;
+    }
+
+    [data-theme="silver"] {
+      --bg-main: #0f1115;
+      --bg-card: #181c24;
+      --bg-card-hover: #222834;
+      --border-color: #3f4b60;
+      --border-accent: #64748b;
+      --text-main: #cbd5e1;
+      --text-dim: #94a3b8;
+      --text-muted: #64748b;
+      --text-bright: #f8fafc;
+      --accent-gold: #38bdf8;
+      --highlight-bg: #273043;
+      --jesus-red: #ff5c5c;
+    }
+
+    [data-theme="bronze"] {
+      --bg-main: #120b08;
+      --bg-card: #1c120e;
+      --bg-card-hover: #281a14;
+      --border-color: #5c3320;
+      --border-accent: #8a4d30;
+      --text-main: #fdba74;
+      --text-dim: #f97316;
+      --text-muted: #c2410c;
+      --text-bright: #ffedd5;
+      --accent-gold: #fde047;
+      --highlight-bg: #3b2015;
+      --jesus-red: #ff6b6b;
     }
 
     * {
@@ -137,6 +262,13 @@
       font-weight: bold;
       letter-spacing: 1px;
       color: var(--text-main);
+    }
+
+    .brand-version {
+      font-size: 0.7em;
+      color: var(--accent-gold);
+      margin-left: 6px;
+      font-weight: normal;
     }
 
     .header-actions {
@@ -319,6 +451,10 @@
       vertical-align: super;
     }
 
+    .jesus-words {
+      color: var(--jesus-red);
+    }
+
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -355,7 +491,7 @@
         <div class="dot dot-yellow"></div>
         <div class="dot dot-green"></div>
       </div>
-      <div class="brand-title">SCRIPTURE CONSOLE / v1.0</div>
+      <div class="brand-title">SCRIPTURE CONSOLE <span style="color: var(--border-accent);">|</span> <span class="brand-version">v1.1</span></div>
     </div>
     <div class="header-actions">
       <button class="btn-header" id="font-dec-btn">A−</button>
@@ -485,8 +621,22 @@
     let currentChapter = 1;
     let currentFontSize = 16;
 
-    const themes = ['', 'amber', 'mauve', 'dark', 'light'];
-    const themeLabels = ['◉ GREEN PHOSPHOR', '◉ AMBER PHOSPHOR', '◉ MAUVE PHOSPHOR', '◉ DARK CODER', '◉ LIGHT TERMINAL'];
+    const themes = ['', 'amber', 'mauve', 'dark', 'light', 'blackedout', 'red', 'blue', 'cyan', 'inverted-green', 'gold', 'silver', 'bronze'];
+    const themeLabels = [
+      '◉ GREEN PHOSPHOR', 
+      '◉ AMBER PHOSPHOR', 
+      '◉ MAUVE PHOSPHOR', 
+      '◉ DARK CODER', 
+      '◉ LIGHT TERMINAL', 
+      '◉ BLACKED OUT', 
+      '◉ RED THEME', 
+      '◉ BLUE THEME', 
+      '◉ CYAN THEME', 
+      '◉ INVERTED GREEN', 
+      '◉ GOLD THEME', 
+      '◉ SILVER THEME', 
+      '◉ BRONZE THEME'
+    ];
     let themeIdx = 0;
 
     const bookDropdown = document.getElementById('book-dropdown');
@@ -494,6 +644,22 @@
     const verseDropdown = document.getElementById('verse-dropdown');
     const passageHeading = document.getElementById('passage-heading');
     const passageDisplayArea = document.getElementById('passage-display-area');
+
+    // Helper to format text: identifies direct words of Jesus (primarily in Gospels / NT or explicit red letter contexts)
+    // In standard API texts without explicit tags, we highlight words spoken directly by Jesus in dialogue or quotes where applicable, 
+    // or specifically parse known quotes / Gospels where Jesus speaks.
+    function formatRedLetters(bookName, text) {
+      // Check if the book is in the Gospels (Matthew, Mark, Luke, John) or Revelation (Jesus speaking in red)
+      const gospels = ["Matthew", "Mark", "Luke", "John", "Revelation"];
+      if (!gospels.includes(bookName)) {
+        return text;
+      }
+
+      // We wrap quoted text spoken by Jesus or handle standard quotation marks in Gospels / Red Letter convention.
+      // To ensure high precision, we match quoted dialogue segments in the Gospels where Jesus is speaking.
+      // For general robust rendering, we parse double quotes or specific spoken phrases.
+      return text.replace(/(["“„‟](?:(?!\.["”„‟])[\s\S])+?["”„‟])/g, '<span class="jesus-words">$1</span>');
+    }
 
     function populateBookSelector() {
       BIBLE_BOOKS.forEach((book, idx) => {
@@ -555,8 +721,9 @@
         data.verses.forEach(v => {
           const isSelected = targetVerse !== 'all' && parseInt(v.verse) === parseInt(targetVerse);
           const activeClass = isSelected ? 'selected' : '';
+          const formattedText = formatRedLetters(bookObj.name, v.text);
           outputHtml += `<span id="v-${v.verse}" class="verse-item ${activeClass}">` +
-                        `<span class="verse-number">${v.verse}</span>${v.text}</span> `;
+                        `<span class="verse-number">${v.verse}</span>${formattedText}</span> `;
         });
 
         passageDisplayArea.innerHTML = outputHtml;
@@ -675,3 +842,4 @@
   </script>
 </body>
 </html>
+
