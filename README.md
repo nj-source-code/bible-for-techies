@@ -1,2 +1,2 @@
-# bible-for-techies_
-bible-for-techies_
+# bible-for-techies
+bible-for-techies
